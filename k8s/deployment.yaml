@@ -1,0 +1,33 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bestcars
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bestcars
+  template:
+    metadata:
+      labels:
+        app: bestcars
+    spec:
+      containers:
+      - name: bestcars
+        image: bestcars:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DEBUG
+          value: "false"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bestcars
+spec:
+  selector:
+    app: bestcars
+  ports:
+  - port: 8000
+    targetPort: 8000

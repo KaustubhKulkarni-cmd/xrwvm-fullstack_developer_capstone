@@ -1,0 +1,1 @@
+﻿export async function api(path,options={}){const c=await fetch("/api/csrf/").then(r=>r.json());const r=await fetch(path,{credentials:"include",...options,headers:{...(options.body?{"Content-Type":"application/json"}:{}),"X-CSRFToken":c.csrfToken,...options.headers}});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||"Request failed");return d}
